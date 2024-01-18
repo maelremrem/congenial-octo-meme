@@ -1,10 +1,11 @@
-FROM httpd
+# Use an official lightweight Nginx image as the base image
+FROM nginx:alpine
 
-# Install git
-RUN apt-get update && apt-get install -y git
+# Copy the website files to the container
+COPY html /usr/share/nginx/html
 
-# Clone le dépôt GitHub
-RUN git clone https://github.com/maelremrem/congenial-octo-meme /usr/local/apache2/htdocs
-
-# Expose le port 80
+# Expose port 80 for web traffic
 EXPOSE 80
+
+# Start the Nginx server
+CMD ["nginx", "-g", "daemon off;"]
