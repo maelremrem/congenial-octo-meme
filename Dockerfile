@@ -1,5 +1,5 @@
 # Autobuild from github actions
-FROM ghcr.io/maelremrem/congenial-octo-meme:latest
+FROM nginx
 
 # Copy the website files to the container
 COPY html /usr/share/nginx/html
