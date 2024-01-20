@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Set up Docker Buildx
       id: buildx
@@ -24,13 +25,10 @@ jobs:
 
     - name: Set image digest as an environment variable
       id: set_image_digest
-      run: echo "::set-env name=IMAGE_DIGEST::$(docker inspect --format '{{index .RepoDigests 0}}' ghcr.io/${{ github.repository }}:latest)"
-
-    - name: Save image digest to a file
-      run: echo "${{ steps.set_image_digest.outputs.IMAGE_DIGEST }}" > image_digest.txt
+      run: echo "IMAGE_DIGEST=$(docker inspect --format '{{index .RepoDigests 0}}' ghcr.io/${{ github.repository }}:latest)" >> $GITHUB_ENV
 
     - name: Upload image digest as environment file
       uses: actions/upload-artifact@v2
       with:
         name: image-digest
-        path: image_digest.txt
+        path: $GITHUB_ENV
