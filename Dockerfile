@@ -1,5 +1,5 @@
-# Use an official lightweight Nginx image as the base image
-FROM nginx:alpine
+# Autobuild from github actions
+FROM ghcr.io/maelremrem/congenial-octo-meme:latest
 
 # Copy the website files to the container
 COPY html /usr/share/nginx/html
