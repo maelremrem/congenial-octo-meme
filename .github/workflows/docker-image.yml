@@ -32,3 +32,6 @@ jobs:
       with:
         name: image-digest
         path: $GITHUB_ENV
+
+    - name: Save image digest as state
+      run: echo "IMAGE_DIGEST=${{ steps.set_image_digest.outputs.IMAGE_DIGEST }}" >> $GITHUB_STATE
